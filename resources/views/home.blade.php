@@ -5,7 +5,6 @@
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
 
             <div class="carousel-inner">
-
                 <div class="carousel-item active">
                     <img src="https://placehold.co/1920x1080/445566/FFFFFF?text=Promo+Lebaran" class="d-block w-100" alt="Promo Lebaran">
                     
@@ -51,49 +50,29 @@
         <h2 class="text-center mb-4">Produk Unggulan</h2>
         
         <div class="row">
-            
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <img src="https://placehold.co/600x400/555/FFF?text=Produk+1" class="card-img-top" alt="Nama Produk 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama Produk Keren</h5>
-                        <p class="card-text">Deskripsi singkat mengenai keunggulan produk ini.</p>
-                        <h6 class="card-subtitle mb-2 text-danger">Rp 250.000</h6>
-                        <a href="#" class="btn btn-primary w-100">
-                           <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
-                        </a>
+            @foreach($products as $product)            
+            <div class="col-md-4 mb-4 col-sm-6">
+                <div class="card shadow-sm h-100">
+                    <img src="{{$product->image}}" class="card-img-top" alt="Nama Produk 1">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $product->name }}</h5>
+                        <p class="card-text">{{ $product->description }}</p>
+                        <div class="mt-auto"> 
+                            <h6 class="card-subtitle mb-2 text-danger">
+                                Rp {{ number_format($product->price, 0, ',', '.') }}
+                            </h6>
+                            
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <img src="https://placehold.co/600x400/666/FFF?text=Produk+2" class="card-img-top" alt="Nama Produk 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Produk Populer</h5>
-                        <p class="card-text">Deskripsi singkat mengenai keunggulan produk ini.</p>
-                        <h6 class="card-subtitle mb-2 text-danger">Rp 310.000</h6>
-                        <a href="#" class="btn btn-primary w-100">
-                           <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <img src="https://placehold.co/600x400/777/FFF?text=Produk+3" class="card-img-top" alt="Nama Produk 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Barang Terlaris</h5>
-                        <p class="card-text">Deskripsi singkat mengenai keunggulan produk ini.</p>
-                        <h6 class="card-subtitle mb-2 text-danger">Rp 199.000</h6>
-                        <a href="#" class="btn btn-primary w-100">
-                           <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div> 
+        <div class="col-12">
+            {{ $products->links() }}
+        </div>
     </main>
 @endsection

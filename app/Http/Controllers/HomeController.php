@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use resources\views\home;
-use App\Http\Controllers\HomeController;
+// use resources\views\home;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $products = Product::paginate(3)->fragment('produk-unggulan');
+        return view('home', compact('products'));
     }
 
     public function cart()
