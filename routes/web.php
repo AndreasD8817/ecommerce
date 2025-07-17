@@ -1,26 +1,22 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\ContohController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
-
-
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/cart', [HomeController::class, 'cart']);
-
-// Route::get('/products', function () {
-//     return 'Ini Adalah Route Produk';
+// Route::get('/', function () {
+//     return view('welcome');
 // });
 
-// Route::get('/cart', function () {
-//     return 'Ini Adalah Route Keranjang';
-// });
+Route::get('/',[HomeController::class,'index']);
 
-Route::get('/coba',[ContohController::class,'coba']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/contoh', [ContohController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::resource('produk', ProductController::class);
-
-
+require __DIR__.'/auth.php';
