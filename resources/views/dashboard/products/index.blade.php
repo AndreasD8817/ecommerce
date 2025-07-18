@@ -11,28 +11,29 @@
             </a>
         </div>
 
-        <div class="card">
+        <div class="card ">
             <div class="card-body">
-                <table class="table table-striped table-hover table-bordered">
+                <table class="table table-striped table-hover table-bordered mb-2">
                     <thead class="table-dark text-center">
                         <tr>
-                            <th scope="col">#ID</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Gambar Produk</th>
                             <th scope="col">Nama Produk</th>
-                            <th scope="col">Deskripsi Produk</th>
+                            <th scope="col" style="width: 30%">Deskripsi Produk</th>
                             <th scope="col">Stok Produk</th>
                             <th scope="col">Harga Produk</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($products as $product)
                         <tr class="align-middle">
-                            <td class="text-center">1</td>
-                            <td class="flex justify-center items-center"><img src="https://placehold.co/300x300/png" alt="Produk 1" class="w-16 h-16 rounded-lg"></td>
-                            <td>Parfum Pria</td>
-                            <td>Parfum pria dengan aroma yang khas dan terjangkau.</td>
-                            <td class="text-center">15</td>
-                            <td class="text-center">Rp 50.000</td>
+                            <td class="text-center">{{ $product->id }}</td>
+                            <td class="flex justify-center items-center"><img src="{{ $product->image }}" alt="Produk 1" class="w-16 h-16 rounded-lg"></td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->description }}.</td>
+                            <td class="text-center">{{ $product->stock }}</td>
+                            <td class="text-center">Rp {{number_format($product->price, 0, ',', '.')}}</td>
                             <td class="text-center">
                                 <a href="{{ route('products-edit') }}" class="btn btn-warning btn-sm" title="Edit">
                                     <i class="bi bi-pencil-square"></i> Edit
@@ -42,8 +43,10 @@
                                 </button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                {{ $products->links() }}
             </div>
         </div>
     </main>

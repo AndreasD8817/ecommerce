@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('dashboard.products.index');
+        $products = Product::with('category')->paginate(5);
+        return view ('dashboard.products.index', compact('products'));
     }
 
     /**
